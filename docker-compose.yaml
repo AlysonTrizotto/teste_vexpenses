@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:14-alpine
+    container_name: primecheck_postgres_db
+    environment:
+      POSTGRES_DB: primecheck_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGPORT: 5437
+    ports:
+      - "5437:5437"
+    volumes:
+      - postgres-db-data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bank
+    command: ["postgres", "-c", "max_connections=500"]
+
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api_primecheck
+    volumes:
+      - .:/app/api_primecheck
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres-db
+      - DB_PORT=5437
+      - DB_DATABASE=primecheck_db
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    depends_on:
+      - postgres-db
+    networks:
+      - bank
+    ports:
+      - "8030:8030"
+    entrypoint: ./scripts/entrypoint.sh
+
+volumes:
+  postgres-db-data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  bank:
+    external: true
+    driver: bridge
