@@ -14,7 +14,6 @@ services:
       - "3306:3306"
     volumes:
       - mysql-db-data:/var/lib/mysql
-      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - vexpenses
 
@@ -41,10 +40,10 @@ services:
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=mysql-db
-      - DB_PORT=5437
+      - DB_PORT=3306
       - DB_DATABASE=vexpenses_db
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
+      - DB_USERNAME=vexpenses_user
+      - DB_PASSWORD=vexpenses_pass
     depends_on:
       - mysql-db
       - redis

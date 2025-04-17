@@ -77,6 +77,7 @@ COPY scripts/supervisord/supervisord-laravel.conf /etc/supervisor/conf.d/supervi
 # Define diretório de trabalho
 WORKDIR /app
 
+
 # Permite execução do entrypoint
 RUN chmod +x scripts/entrypoint.sh
 
