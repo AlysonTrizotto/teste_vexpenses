@@ -1,54 +1,66 @@
 version: '3.8'
 
 services:
-  postgres-db:
-    image: postgres:14-alpine
-    container_name: primecheck_postgres_db
+  mysql-db:
+    image: mysql:8.0
+    container_name: vexpenses_mysql_db
+    restart: always
     environment:
-      POSTGRES_DB: primecheck_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGPORT: 5437
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: vexpenses_db
+      MYSQL_USER: vexpenses_user
+      MYSQL_PASSWORD: vexpenses_pass
     ports:
-      - "5437:5437"
+      - "3306:3306"
     volumes:
-      - postgres-db-data:/var/lib/postgresql/data
+      - mysql-db-data:/var/lib/mysql
       - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - bank
-    command: ["postgres", "-c", "max_connections=500"]
+      - vexpenses
 
+  redis:
+    image: redis:alpine
+    container_name: vexpenses_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - vexpenses
+    restart: unless-stopped
 
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: api_primecheck
+    container_name: api_vexpenses
     volumes:
-      - .:/app/api_primecheck
+      - .:/app/api_vexpenses
       - caddy_data:/data
       - caddy_config:/config
     environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=postgres-db
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql-db
       - DB_PORT=5437
-      - DB_DATABASE=primecheck_db
+      - DB_DATABASE=vexpenses_db
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
     depends_on:
-      - postgres-db
+      - mysql-db
+      - redis
     networks:
-      - bank
+      - vexpenses
     ports:
       - "8030:8030"
     entrypoint: ./scripts/entrypoint.sh
 
 volumes:
-  postgres-db-data:
+  mysql-db-data:
   caddy_data:
   caddy_config:
+  redis-data:
 
 networks:
-  bank:
+  vexpenses:
     external: true
     driver: bridge
