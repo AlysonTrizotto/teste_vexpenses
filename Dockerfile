@@ -1,7 +1,7 @@
 FROM php:8.3-cli-alpine AS build
 
 # Instala dependências de build
-RUN apk add --no-cache --virtual .php_build_deps $PHPIZE_DEPS && \
+RUN apk add --no-cache --virtual .php_build_deps $PHPIZE_DEPS autoconf && \
     apk add --no-cache \
         libstdc++ \
         brotli-dev \
@@ -17,6 +17,7 @@ RUN apk add --no-cache --virtual .php_build_deps $PHPIZE_DEPS && \
         zlib-dev \
         mysql-client \
         mariadb-dev
+
 
 # Configura e instala extensões PHP
 RUN docker-php-ext-configure pcntl --enable-pcntl && \
@@ -54,7 +55,7 @@ RUN npm install && npm run build
 FROM dunglas/frankenphp:latest-php8.3-alpine
 
 # Instala dependências de runtime
-RUN apk add --no-cache --virtual .php_runtime_deps $PHPIZE_DEPS && \
+RUN apk add --no-cache --virtual .php_runtime_deps $PHPIZE_DEPS autoconf && \
     apk add --no-cache \
         bash \
         mariadb-dev \
@@ -62,10 +63,15 @@ RUN apk add --no-cache --virtual .php_runtime_deps $PHPIZE_DEPS && \
         libzip-dev \
         libxml2-dev \
         zlib-dev \
+        pcre-dev \
         supervisor && \
     docker-php-ext-configure pcntl --enable-pcntl && \
     docker-php-ext-install pcntl pdo_mysql && \
+    pecl update-channels && \
+    pecl install redis && \
+    docker-php-ext-enable redis && \
     apk del .php_runtime_deps
+
 
 # Copia aplicação compilada do estágio anterior
 COPY --from=build /app /app

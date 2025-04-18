@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\v1;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\v1\CustomResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens,  HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_date',
     ];
 
     /**
@@ -41,8 +43,37 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
+            'password' => 'date',
             'password' => 'hashed',
         ];
+    }
+
+    
+    protected static function store(array $data){
+        return self::create($data);
+    }
+
+    protected static function me(int $userId)
+    {
+        return self::select('id', 'name', 'email', 'birth_date')
+                    ->where('id', $userId)
+                    ->first();
+    
+    }
+
+    public static function index(array $data){
+        return self::select('id', 'name', 'email', 'birth_date')
+                    ->when($data['name'] ?? null, function ($query, $name) {
+                        $query->where('name', 'like', "%{$name}%");
+                    })
+                    ->when($data['email'] ?? null, function ($query, $email) {
+                        $query->where('email', 'like', "%{$email}%");
+                    })
+                    ->paginate(10);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPassword($token));
     }
 }
