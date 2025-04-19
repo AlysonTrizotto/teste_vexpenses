@@ -1,0 +1,1303 @@
+{
+	"info": {
+		"_postman_id": "9fed84e6-a135-455e-9d43-8ceeca7bd4ea",
+		"name": "Vexpenses",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19255200",
+		"_collection_link": "https://auto-check.postman.co/workspace/Vexpenses~e75dcc6d-f51d-4330-8d75-a06bf86ffc4e/collection/19255200-9fed84e6-a135-455e-9d43-8ceeca7bd4ea?action=share&source=collection_link&creator=19255200"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Authenticate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Captura o corpo da resposta\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// Verifica se o token existe e armazena em variável global (ou de ambiente)\r",
+									"if (jsonData && jsonData.data && jsonData.data.token) {\r",
+									"    pm.collectionVariables.set(\"bearerToken\", jsonData.data.token);\r",
+									"\r",
+									"    console.log(\"Token salvo como 'bearerToken':\", jsonData.data.token);\r",
+									"} else {\r",
+									"    console.warn(\"Token não encontrado na resposta.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"alysontrizotto1@gmail.com\",\r\n    \"password\" : \"abcd1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}v1/user/authenticate",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"authenticate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Authentication Exemple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"alysontrizotto1@gmail.com\",\r\n    \"password\" : \"abcd1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_host}}v1/user/authenticate",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"authenticate"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Apr 2025 00:14:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on login user\",\n    \"data\": {\n        \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL3YxL3VzZXIvYXV0aGVudGljYXRlIiwiaWF0IjoxNzQ1MDIxNjQ1LCJleHAiOjE3NDUxOTQ0NDUsIm5iZiI6MTc0NTAyMTY0NSwianRpIjoiRTdBWk9KV1NKMWtRZWJyciIsInN1YiI6IjYzIiwicHJ2IjoiYTk1OTY3OGViNzNkNzY4NjBhZWVhZjk4OWQ1NTYxZTA3M2UxZTc4ZSJ9.CA4PR0h8Oh9H3UHUaL0bKuf_fAGwudMYPfuH_Sv9FUM\",\n        \"expires_in\": 172800,\n        \"user\": {\n            \"id\": 63,\n            \"name\": \"Alyson\",\n            \"email\": \"alysontrizotto1@gmail.com\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"alysontrizotto1@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}v1/user/forgot-password",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"forgot-password"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Forgot Password Exemple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\" : \"alysontrizotto1@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_host}}v1/user/forgot-password",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"forgot-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:55:25 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "127"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Password reset link sent successfully\",\n    \"data\": {\n        \"status\": \"We have emailed your password reset link.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Reset Password",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\" : \"abcd1234\",\r\n    \"password_confirmation\" : \"abcd1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}v1/user/recover-password?token=046eb31ece14a3a4b60ca05f484ac0db61487468fe22490c07ea28ebc9e8517a&email=alysontrizotto1%40gmail.com",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"recover-password"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "046eb31ece14a3a4b60ca05f484ac0db61487468fe22490c07ea28ebc9e8517a"
+								},
+								{
+									"key": "email",
+									"value": "alysontrizotto1%40gmail.com"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Reset Password Exemple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\" : \"abcd1234\",\r\n    \"password_confirmation\" : \"abcd1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_host}}v1/user/recover-password?token=b2740236fbd90c858b24515a77c9339ade6c055005d5cc8c402222bf5031fcd6&email=alysontrizotto1%40gmail.com",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"recover-password"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "b2740236fbd90c858b24515a77c9339ade6c055005d5cc8c402222bf5031fcd6"
+										},
+										{
+											"key": "email",
+											"value": "alysontrizotto1%40gmail.com"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:56:05 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Password reset successfully\",\n    \"data\": {\n        \"status\": \"Your password has been reset.\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Captura o corpo da resposta\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// Verifica se o token existe e armazena em variável global (ou de ambiente)\r",
+									"if (jsonData && jsonData.data && jsonData.data.token) {\r",
+									"    pm.collectionVariables.set(\"bearerToken\", jsonData.data.token);\r",
+									"\r",
+									"    console.log(\"Token salvo como 'bearerToken':\", jsonData.data.token);\r",
+									"} else {\r",
+									"    console.warn(\"Token não encontrado na resposta.\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/user/refresh-token",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"refresh-token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Refresh Token Exemple",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/user/refresh-token",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"refresh-token"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:51:05 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "245"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on refresh user\",\n    \"data\": {\n        \"token\": \"34|VexpenseskxjelHoT2DPL5vV0pNt4jhzGOhQENkwS2jHBaRS9ca4d3821\",\n        \"time_to_expire_token\": \"2025-04-18T23:51:05.000000Z\",\n        \"user\": {\n            \"name\": \"Alyson\",\n            \"email\": \"alysontrizotto1@gmail.com\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/user/logout",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Logout Exemple",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/user/logout",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"logout"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:50:46 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on logout user\",\n    \"data\": {\n        \"message\": \"Successfully logged out\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Alyson\",\r\n    \"email\" : \"alysontrizotto1@gmail.com\",\r\n    \"password\" : \"abcd1234\",\r\n    \"password_confirmation\" : \"abcd1234\",\r\n    \"birth_date\" : \"1997-10-05\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}v1/user/register",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register Exemple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" : \"Alyson\",\r\n    \"email\" : \"alysontrizotto1@gmail.com\",\r\n    \"password\" : \"abcd1234\",\r\n    \"password_confirmation\" : \"abcd1234\",\r\n    \"birth_date\" : \"1997-10-05\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_host}}v1/user/register",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:48:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "232"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on register user\",\n    \"data\": {\n        \"name\": \"Alyson\",\n        \"email\": \"alysontrizotto1@gmail.com\",\n        \"birth_date\": \"1997-10-05\",\n        \"updated_at\": \"2025-04-18T21:48:07.000000Z\",\n        \"created_at\": \"2025-04-18T21:48:07.000000Z\",\n        \"id\": 1\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/D:/usuarios_teste.csv"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api_host}}v1/user/upload",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"upload"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload Exemple",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/D:/usuarios_teste.csv"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_host}}v1/user/upload",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"upload"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:48:23 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "346"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on store file. We will process in background.\",\n    \"data\": {\n        \"name\": \"759c5fa1-1a99-4eb5-9725-6abc27b2d682.csv\",\n        \"original_name\": \"usuarios_teste.csv\",\n        \"path\": \"2025/04/18/759c5fa1-1a99-4eb5-9725-6abc27b2d682.csv\",\n        \"status\": 0,\n        \"updated_at\": \"2025-04-18T21:48:23.000000Z\",\n        \"created_at\": \"2025-04-18T21:48:23.000000Z\",\n        \"id\": 32\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Import Status",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/user/import-status/73",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"import-status",
+								"73"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Import Status Exemple",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/user/import-status/32",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"import-status",
+										"32"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:48:53 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "395"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on store file. We will process in background.\",\n    \"data\": {\n        \"id\": 32,\n        \"name\": \"759c5fa1-1a99-4eb5-9725-6abc27b2d682.csv\",\n        \"original_name\": \"usuarios_teste.csv\",\n        \"path\": \"2025/04/18/759c5fa1-1a99-4eb5-9725-6abc27b2d682.csv\",\n        \"status\": 3,\n        \"error\": null,\n        \"created_at\": \"2025-04-18T21:48:23.000000Z\",\n        \"updated_at\": \"2025-04-18T21:48:33.000000Z\",\n        \"deleted_at\": null,\n        \"progress\": \"0.50\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Me",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/user/me",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Me Exemple",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/user/me",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user",
+										"me"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:50:03 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "141"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on get user\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Alyson\",\n        \"email\": \"alysontrizotto1@gmail.com\",\n        \"birth_date\": \"1997-10-05\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Index",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/user",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "sOn",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "alysontrizotto@gmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Index Exemple",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/user",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"user"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "sOn",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "alysontrizotto@gmail.com",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 18 Apr 2025 21:50:13 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Caddy"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "665"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Success on get users\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"id\": 1,\n                \"name\": \"Alyson\",\n                \"email\": \"alysontrizotto1@gmail.com\",\n                \"birth_date\": \"1997-10-05\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"Sophie Peixoto\",\n                \"email\": \"daniela76@rocha.br\",\n                \"birth_date\": \"1964-01-09\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Beatriz Gomes\",\n                \"email\": \"fernandesemilly@lima.com\",\n                \"birth_date\": \"1979-03-27\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"Maria Eduarda Castro\",\n                \"email\": \"nlopes@ig.com.br\",\n                \"birth_date\": \"1962-02-14\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"Luana Pires\",\n                \"email\": \"vieiraantonio@gmail.com\",\n                \"birth_date\": \"1988-07-28\"\n            },\n            {\n                \"id\": 6,\n                \"name\": \"Dra. Marina Almeida\",\n                \"email\": \"luigi51@hotmail.com\",\n                \"birth_date\": \"1964-06-19\"\n            },\n            {\n                \"id\": 7,\n                \"name\": \"Danilo Viana\",\n                \"email\": \"cardosopedro-miguel@bol.com.br\",\n                \"birth_date\": \"2000-11-19\"\n            },\n            {\n                \"id\": 8,\n                \"name\": \"Heitor Vieira\",\n                \"email\": \"vieiraraul@bol.com.br\",\n                \"birth_date\": \"1961-12-13\"\n            },\n            {\n                \"id\": 9,\n                \"name\": \"Maria Clara Gomes\",\n                \"email\": \"nogueirapedro-miguel@bol.com.br\",\n                \"birth_date\": \"1967-03-31\"\n            },\n            {\n                \"id\": 10,\n                \"name\": \"Diego da Mota\",\n                \"email\": \"ferreirabruna@carvalho.com\",\n                \"birth_date\": \"1954-08-25\"\n            }\n        ],\n        \"first_page_url\": \"http://localhost:8030/api/v1/user?page=1\",\n        \"from\": 1,\n        \"last_page\": 51,\n        \"last_page_url\": \"http://localhost:8030/api/v1/user?page=51\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"&laquo; Previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=2\",\n                \"label\": \"2\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=3\",\n                \"label\": \"3\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=4\",\n                \"label\": \"4\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=5\",\n                \"label\": \"5\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=6\",\n                \"label\": \"6\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=7\",\n                \"label\": \"7\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=8\",\n                \"label\": \"8\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=9\",\n                \"label\": \"9\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=10\",\n                \"label\": \"10\",\n                \"active\": false\n            },\n            {\n                \"url\": null,\n                \"label\": \"...\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=50\",\n                \"label\": \"50\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=51\",\n                \"label\": \"51\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8030/api/v1/user?page=2\",\n                \"label\": \"Next &raquo;\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": \"http://localhost:8030/api/v1/user?page=2\",\n        \"path\": \"http://localhost:8030/api/v1/user\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 10,\n        \"total\": 501\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Log",
+			"item": [
+				{
+					"name": "Show",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/log/1",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"log",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Show",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/log/1",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"log",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Apr 2025 01:39:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Log recuperado com sucesso\",\n    \"data\": {\n        \"id\": 1,\n        \"action\": \"Get import progress\",\n        \"description\": \"Checking import progress for file management ID: 34\",\n        \"user_id\": 63,\n        \"created_at\": \"2025-04-19T01:33:53.000000Z\",\n        \"updated_at\": \"2025-04-19T01:33:53.000000Z\",\n        \"user\": {\n            \"id\": 63,\n            \"name\": \"Alyson\",\n            \"email\": \"alysontrizotto1@gmail.com\",\n            \"birth_date\": \"1997-10-05\",\n            \"created_at\": \"2025-04-19T00:00:58.000000Z\",\n            \"updated_at\": \"2025-04-19T00:37:56.000000Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Index",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearerToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_host}}v1/log",
+							"host": [
+								"{{api_host}}v1"
+							],
+							"path": [
+								"log"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "sOn",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "alysontrizotto@gmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Index",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_host}}v1/log",
+									"host": [
+										"{{api_host}}v1"
+									],
+									"path": [
+										"log"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "sOn",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "alysontrizotto@gmail.com",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Apr 2025 01:40:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Logs recuperados com sucesso\",\n    \"data\": {\n        \"current_page\": 1,\n        \"data\": [\n            {\n                \"id\": 1,\n                \"action\": \"Get import progress\",\n                \"description\": \"Checking import progress for file management ID: 34\",\n                \"user_id\": 63,\n                \"created_at\": \"2025-04-19T01:33:53.000000Z\",\n                \"updated_at\": \"2025-04-19T01:33:53.000000Z\",\n                \"user\": {\n                    \"id\": 63,\n                    \"name\": \"Alyson\",\n                    \"email\": \"alysontrizotto1@gmail.com\",\n                    \"birth_date\": \"1997-10-05\",\n                    \"created_at\": \"2025-04-19T00:00:58.000000Z\",\n                    \"updated_at\": \"2025-04-19T00:37:56.000000Z\"\n                }\n            },\n            {\n                \"id\": 2,\n                \"action\": \"User me\",\n                \"description\": \"userId: 422\",\n                \"user_id\": 422,\n                \"created_at\": \"2025-04-19T01:34:05.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:05.000000Z\",\n                \"user\": {\n                    \"id\": 422,\n                    \"name\": \"Demetrius Blick\",\n                    \"email\": \"gziemann@example.com\",\n                    \"birth_date\": \"1982-02-16\",\n                    \"created_at\": \"2025-04-19T01:34:05.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:05.000000Z\"\n                }\n            },\n            {\n                \"id\": 3,\n                \"action\": \"User index\",\n                \"description\": \"search: []\",\n                \"user_id\": 423,\n                \"created_at\": \"2025-04-19T01:34:08.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:08.000000Z\",\n                \"user\": {\n                    \"id\": 423,\n                    \"name\": \"Prof. Keagan Hamill IV\",\n                    \"email\": \"monty.hermann@example.com\",\n                    \"birth_date\": \"1979-03-10\",\n                    \"created_at\": \"2025-04-19T01:34:05.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:05.000000Z\"\n                }\n            },\n            {\n                \"id\": 4,\n                \"action\": \"Import users from file\",\n                \"description\": \"Importing a new file, creating a new record of file management\",\n                \"user_id\": 474,\n                \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:09.000000Z\",\n                \"user\": {\n                    \"id\": 474,\n                    \"name\": \"Jamey Friesen II\",\n                    \"email\": \"layla.casper@example.org\",\n                    \"birth_date\": \"2016-02-13\",\n                    \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:09.000000Z\"\n                }\n            },\n            {\n                \"id\": 5,\n                \"action\": \"File stored\",\n                \"description\": \"File stored successfully, dispatching job to process file\",\n                \"user_id\": 474,\n                \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:09.000000Z\",\n                \"user\": {\n                    \"id\": 474,\n                    \"name\": \"Jamey Friesen II\",\n                    \"email\": \"layla.casper@example.org\",\n                    \"birth_date\": \"2016-02-13\",\n                    \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:09.000000Z\"\n                }\n            },\n            {\n                \"id\": 6,\n                \"action\": \"Process file\",\n                \"description\": \"Processing file with ID: 55\",\n                \"user_id\": 474,\n                \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:09.000000Z\",\n                \"user\": {\n                    \"id\": 474,\n                    \"name\": \"Jamey Friesen II\",\n                    \"email\": \"layla.casper@example.org\",\n                    \"birth_date\": \"2016-02-13\",\n                    \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:09.000000Z\"\n                }\n            },\n            {\n                \"id\": 7,\n                \"action\": \"Get import progress\",\n                \"description\": \"Checking import progress for file management ID: 55\",\n                \"user_id\": 474,\n                \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"user\": {\n                    \"id\": 474,\n                    \"name\": \"Jamey Friesen II\",\n                    \"email\": \"layla.casper@example.org\",\n                    \"birth_date\": \"2016-02-13\",\n                    \"created_at\": \"2025-04-19T01:34:09.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:09.000000Z\"\n                }\n            },\n            {\n                \"id\": 8,\n                \"action\": \"Import users from file\",\n                \"description\": \"Importing a new file, creating a new record of file management\",\n                \"user_id\": 478,\n                \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"user\": {\n                    \"id\": 478,\n                    \"name\": \"Rebeka Pouros\",\n                    \"email\": \"bahringer.glenna@example.com\",\n                    \"birth_date\": \"2017-06-02\",\n                    \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:30.000000Z\"\n                }\n            },\n            {\n                \"id\": 9,\n                \"action\": \"File stored\",\n                \"description\": \"File stored successfully, dispatching job to process file\",\n                \"user_id\": 478,\n                \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"user\": {\n                    \"id\": 478,\n                    \"name\": \"Rebeka Pouros\",\n                    \"email\": \"bahringer.glenna@example.com\",\n                    \"birth_date\": \"2017-06-02\",\n                    \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:30.000000Z\"\n                }\n            },\n            {\n                \"id\": 10,\n                \"action\": \"Process file\",\n                \"description\": \"Processing file with ID: 56\",\n                \"user_id\": 478,\n                \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"updated_at\": \"2025-04-19T01:34:30.000000Z\",\n                \"user\": {\n                    \"id\": 478,\n                    \"name\": \"Rebeka Pouros\",\n                    \"email\": \"bahringer.glenna@example.com\",\n                    \"birth_date\": \"2017-06-02\",\n                    \"created_at\": \"2025-04-19T01:34:30.000000Z\",\n                    \"updated_at\": \"2025-04-19T01:34:30.000000Z\"\n                }\n            }\n        ],\n        \"first_page_url\": \"http://localhost:8000/api/v1/log?page=1\",\n        \"from\": 1,\n        \"last_page\": 3,\n        \"last_page_url\": \"http://localhost:8000/api/v1/log?page=3\",\n        \"links\": [\n            {\n                \"url\": null,\n                \"label\": \"&laquo; Previous\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/v1/log?page=1\",\n                \"label\": \"1\",\n                \"active\": true\n            },\n            {\n                \"url\": \"http://localhost:8000/api/v1/log?page=2\",\n                \"label\": \"2\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/v1/log?page=3\",\n                \"label\": \"3\",\n                \"active\": false\n            },\n            {\n                \"url\": \"http://localhost:8000/api/v1/log?page=2\",\n                \"label\": \"Next &raquo;\",\n                \"active\": false\n            }\n        ],\n        \"next_page_url\": \"http://localhost:8000/api/v1/log?page=2\",\n        \"path\": \"http://localhost:8000/api/v1/log\",\n        \"per_page\": 10,\n        \"prev_page_url\": null,\n        \"to\": 10,\n        \"total\": 23\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"\r",
+					"pm.request.headers.upsert({\r",
+					"    key: 'Accept',\r",
+					"    value: 'application/json'\r",
+					"});\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_host",
+			"value": "http://localhost:8030/api/",
+			"type": "string"
+		},
+		{
+			"key": "bearerToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

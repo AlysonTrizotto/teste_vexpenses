@@ -3,6 +3,8 @@
 # 🚀 Desafio Técnico - Vaga Back-End VExpenses
 
 Esta aplicação foi desenvolvida como parte de um **desafio técnico** para a vaga de **Desenvolvedor Back-end** na **VExpenses**.
+Collection do Postman esta em: /postman_collection/Vexpenses.postman_collection.json
+O arquivo de teste esta em: /csv_test_file/usuarios_teste.csv
 
 ---
 
