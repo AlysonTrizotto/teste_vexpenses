@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\feature\v1;
+namespace Tests\Feature\v1;
 
 use App\Models\v1\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +13,6 @@ class GetUserListTest extends TestCase
      * Verifica se o endpoint /api/v1/user retorna a lista de usu rios
      * paginada, com a estrutura esperada.
      *
-     * @test
      */
     public function test_it_returns_paginated_users_list_with_expected_structure(): void
     {

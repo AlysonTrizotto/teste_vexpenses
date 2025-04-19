@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\feature\v1;
+namespace Tests\Feature\v1;
 
 use Tests\TestCase;
 
@@ -9,7 +9,6 @@ class GetAuthenticatedUserTest extends TestCase
     /**
      * Verifica se o endpoint /api/v1/user/me retorna o usuario autenticado com a estrutura esperada.
      *
-     * @test
      */
     public function test_get_authenticated_user_returns_expected_structure()
     {

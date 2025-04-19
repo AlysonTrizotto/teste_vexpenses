@@ -33,15 +33,9 @@ class AuthenticationController extends Controller
             return $this->sendSuccessResponse(new UserResource($this->usersServices->refreshToken($request)), 'Success on refresh user', HttpCodeEnum::CREATED->value);
         } catch (\Exception $ex) {
             return $this->sendFailResponse($ex, 'Fail on refresh user');
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return $this->sendFailResponse($e, 'Fail on refresh user', HttpCodeEnum::UNAUTHORIZED->value);
         }
     }
 
-    public function destroy(Request $request)
-    {
-        try {
-            return $this->sendSuccessResponse(new UserResource($this->usersServices->delete($request)), 'Success on logout user', HttpCodeEnum::CREATED->value);
-        } catch (\Exception $ex) {
-            return $this->sendFailResponse($ex, 'Fail on logout user');
-        }
-    }
 }

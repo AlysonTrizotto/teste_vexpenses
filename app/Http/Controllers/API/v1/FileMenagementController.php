@@ -34,7 +34,7 @@ class FileMenagementController extends Controller
             return $this->sendSuccessResponse(
                 new FileMenagementResource(
                     $this->fileMenagementService->getImportProgress($id)
-            ), 'Success on store file. We will process in background.', HttpCodeEnum::CREATED->value);
+            ), 'Success on store file. We will process in background.', HttpCodeEnum::OK->value);
         } catch (\Exception $ex) {
             return $this->sendFailResponse($ex, 'Fail on update user');
         }

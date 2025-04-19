@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function(){
     Route::prefix('user')->group(function(){
-        Route::middleware('guest')->group(function () {
+        
             // Authentication and Register
             Route::post('register', [App\Http\Controllers\API\v1\Authentication\RegisterController::class, 'register']);
             Route::post('authenticate', [App\Http\Controllers\API\v1\Authentication\AuthenticationController::class, 'authenticate'])->name('login');
@@ -17,13 +17,12 @@ Route::prefix('v1')->group(function(){
                 ->name('password.email');
             Route::post('recover-password', [App\Http\Controllers\API\v1\Authentication\NewPasswordController::class, 'store'])
                 ->name('password.reset');
-        });
+        
 
 
 
-        Route::middleware(['auth:sanctum',])->group(function () {
-            Route::middleware(['ability:' . TokenAbility::ISSUE_ACCESS_TOKEN->value])
-                ->get('refresh-token', [App\Http\Controllers\API\v1\Authentication\AuthenticationController::class, 'refreshToken']);
+        Route::middleware(['auth.jwt'])->group(function () {
+            Route::get('refresh-token', [App\Http\Controllers\API\v1\Authentication\AuthenticationController::class, 'refreshToken']);
 
             Route::get('me', [App\Http\Controllers\API\v1\UserController::class, 'me']);
 
@@ -36,5 +35,10 @@ Route::prefix('v1')->group(function(){
             Route::get('/import-status/{id}', [App\Http\Controllers\API\v1\FileMenagementController::class, 'getImportProgress']);
         });    
         
+    });
+
+    Route::middleware(['auth.jwt'])->group(function () {
+        Route::get('/log', [App\Http\Controllers\API\v1\LogController::class, 'index']);
+        Route::get('/log/{id}', [App\Http\Controllers\API\v1\LogController::class, 'show']);
     });
 });

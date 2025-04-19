@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\feature\v1;
+namespace Tests\Feature\v1;
 
 use App\Models\v1\User;
 use Illuminate\Http\UploadedFile;

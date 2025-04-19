@@ -8,6 +8,7 @@ use App\Jobs\v1\ProcessFileJob;
 use App\Models\v1\FileManagement;
 use App\Models\v1\User;
 use App\Services\v1\StorageManagerService;
+use App\Traits\v1\CreateLog;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -16,14 +17,12 @@ use Ramsey\Uuid\Uuid;
 
 class FileMenagementService
 {
-
+    use CreateLog;
 
     public function __construct(
         private FileManagement $fileManagement,
         private StorageManagerService $storageManager
-    ){
-        $this->storageManager = $storageManager;
-    }
+    ){}
 
     /**
      * Get the import progress for a given file management ID.
@@ -34,6 +33,8 @@ class FileMenagementService
      */
     public function getImportProgress(int $fileManagementId)
     {
+        $this->createLog('Get import progress', 'Checking import progress for file management ID: ' . $fileManagementId);
+
         $percent = Cache::get("file_management_:{$fileManagementId}",0);
         if($percent !== null && $percent <= 100)
         {
@@ -43,7 +44,7 @@ class FileMenagementService
         }else{
             $fileManagement = collect($this->fileManagement->getById($fileManagementId));
         }
-        
+
         $status = $fileManagement->get('status');
 
         $progress = match ($status) {
@@ -62,6 +63,8 @@ class FileMenagementService
     
     public function importUsersFromFile(array $data)
     {
+        $this->createLog('Import users from file', 'Importing a new file, creating a new record of file management');
+
         $fileName = Uuid::uuid4()->toString() . "." . $data["file"]->getClientOriginalExtension();
         $path = date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR . date('d');
         
@@ -73,9 +76,11 @@ class FileMenagementService
         ]);
 
         if(!$this->storageManager->putFile($path, $data["file"], $fileName)){
+            $this->createLog('Error on store file', 'Error on store file, file not written');
             throw new Exception('Error on store file');
         }
 
+        $this->createLog('File stored', 'File stored successfully, dispatching job to process file');
         dispatch(new ProcessFileJob($fileManagement));
 
         return $fileManagement;

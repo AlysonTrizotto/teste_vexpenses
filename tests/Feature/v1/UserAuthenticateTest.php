@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\feature\v1;
+namespace Tests\Feature\v1;
 
 use App\Models\v1\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,8 +39,7 @@ class UserAuthenticateTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'token',
-                    'refresh_token',
-                    'time_to_expire_token',
+                    'expires_in',
                     'user' => [
                         'id',
                         'name',

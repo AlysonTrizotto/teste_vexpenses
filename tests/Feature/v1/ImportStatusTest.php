@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\feature\v1;
+namespace Tests\Feature\v1;
 
 use App\Models\v1\User;
 use Illuminate\Http\UploadedFile;
@@ -10,7 +10,6 @@ use Tests\TestCase;
 class ImportStatusTest extends TestCase
 {
     /**
-     * @test
      *
      * Verifica se:
      *  1. O upload de um arquivo CSV fake com usuários fake é realizado com sucesso;
@@ -98,7 +97,7 @@ class ImportStatusTest extends TestCase
         ])->getJson("/api/v1/user/import-status/{$importId}");
 
         // 8. Valida o retorno completo do status da importação
-        $statusResponse->assertCreated()
+        $statusResponse->assertOk()
             ->assertJson([
                 'status' => true,
                 'message' => 'Success on store file. We will process in background.',

@@ -4,8 +4,6 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Enums\v1\HttpCodeEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\v1\Authentication\UpdateUserRequest;
-use App\Http\Requests\v1\User\ImportUsersFromFileRequest;
 use App\Http\Requests\v1\User\UserIndexRequest;
 use App\Http\Resources\v1\UserResource;
 use App\Services\v1\UsersServices;
@@ -13,10 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function __construct(private UsersServices $usersServices)
-    {
-        $this->usersServices = new UsersServices();
-    }
+    public function __construct(private UsersServices $usersServices){}
 
     public function me()
     {

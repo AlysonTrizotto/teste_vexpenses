@@ -2,10 +2,9 @@
 
 namespace Tests;
 
-use App\Enums\v1\TokenAbility;
 use App\Models\v1\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Auth;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -30,10 +29,15 @@ abstract class TestCase extends BaseTestCase
      */
     public function authenticateAndGetToken(User $user): string
     {
-        return $user->createToken(
-            'access_token',
-            [TokenAbility::ACCESS_API->value, $user->user_type], // abilities
-            Carbon::now()->addMinutes(config('sanctum.ac_expiration')) // expiração (Laravel 12+)
-        )->plainTextToken;
+        $credentials = [
+            'email' => $user->email,
+            'password' => 'password',
+        ];
+        
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
+            return "";
+        }
+
+        return $token;
     }
 }
