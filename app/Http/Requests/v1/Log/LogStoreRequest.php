@@ -24,7 +24,7 @@ class LogStoreRequest extends FormRequest
         return [
             'action' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+            'user_id' => ['nullable', 'integer', 'exists:users,id'],
         ];
     }
 }

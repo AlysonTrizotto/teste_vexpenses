@@ -33,6 +33,7 @@ class UsersServices
     {
         $this->createLog('User create', 'data: ' .  json_encode($request->except(['password', 'password_confirmation'])));
         $user = $this->user::store($request->validated());
+        
         dispatch(new SendWelcomeMailJob($user->name, $user->email));
         return $user;
     }
