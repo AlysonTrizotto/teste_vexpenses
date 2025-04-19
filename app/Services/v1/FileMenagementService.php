@@ -34,16 +34,8 @@ class FileMenagementService
     public function getImportProgress(int $fileManagementId)
     {
         $this->createLog('Get import progress', 'Checking import progress for file management ID: ' . $fileManagementId);
+        $fileManagement = collect($this->fileManagement->getById($fileManagementId));
 
-        $percent = Cache::get("file_management_:{$fileManagementId}",0);
-        if($percent !== null && $percent <= 100)
-        {
-            $fileManagement = Cache::remember("file_menagement_get_progress:{$fileManagementId}", now()->addMinutes(10), function()use ($fileManagementId){
-                return collect($this->fileManagement->getById($fileManagementId));
-            });
-        }else{
-            $fileManagement = collect($this->fileManagement->getById($fileManagementId));
-        }
 
         $status = $fileManagement->get('status');
 
