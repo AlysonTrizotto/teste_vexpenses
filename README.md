@@ -95,5 +95,3 @@ docker compose up --build
 ```
 
 ---
-
-Se quiser, posso também gerar uma versão com badges, exemplos de requisição (cURL ou Postman), estrutura de pastas, etc. É só pedir!
