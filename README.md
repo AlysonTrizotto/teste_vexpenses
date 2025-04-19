@@ -5,8 +5,8 @@
 Esta aplicação foi desenvolvida como parte do **desafio técnico** para a vaga de **Desenvolvedor Back-end** na **VExpenses**.
 
 📁 **Recursos Úteis:**
-- 📬 Collection Postman: `postman_collection/Vexpenses.postman_collection.json`  
-- 📄 Arquivo de teste CSV: `csv_test_file/usuarios_teste.csv`
+- 📬 Collection Postman `postman_collection/Vexpenses.postman_collection.json`  
+- 📄 Arquivo de teste CSV `csv_test_file/usuarios_teste.csv`
 
 ---
 
