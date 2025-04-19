@@ -1,98 +1,101 @@
 ---
 
-# 🚀 Desafio Técnico - Vaga Back-End VExpenses
+# 🚀 Desafio Técnico — Vaga Back-End | VExpenses
 
-Esta aplicação foi desenvolvida como parte de um **desafio técnico** para a vaga de **Desenvolvedor Back-end** na **VExpenses**.
-Collection do Postman esta em: /postman_collection/Vexpenses.postman_collection.json
-O arquivo de teste esta em: /csv_test_file/usuarios_teste.csv
+Esta aplicação foi desenvolvida como parte do **desafio técnico** para a vaga de **Desenvolvedor Back-end** na **VExpenses**.
+
+📁 **Recursos Úteis:**
+- 📬 Collection Postman: `postman_collection/Vexpenses.postman_collection.json`  
+- 📄 Arquivo de teste CSV: `csv_test_file/usuarios_teste.csv`
 
 ---
 
 ## 📌 Funcionalidades
 
-### 🔐 1. Autenticação Back-end
+### 🔐 Autenticação
 
-- **1.1 Registro de Usuário**  
+- **1.1 Registro de Usuário:**  
   Registro com envio de e-mail automático para novos usuários.
 
-- **1.2 Login com JWT**  
-  Autenticação utilizando **JWT (JSON Web Token)** com dados criptografados.
+- **1.2 Login com JWT:**  
+  Autenticação via **JWT** com dados criptografados.
 
-- **1.3 Refresh Token**  
+- **1.3 Refresh Token:**  
   Renovação segura do token de acesso.
 
-- **1.4 Esqueci Minha Senha**  
+- **1.4 Esqueci Minha Senha:**  
   Envio de link de redefinição via e-mail.
 
-- **1.5 Redefinição de Senha**  
-  Validação via token com link para criação de nova senha.
+- **1.5 Redefinição de Senha:**  
+  Requisição via link/token para criação de nova senha.
 
-- **1.6 Logout**  
-  Encerramento seguro da sessão autenticada.
+- **1.6 Logout:**  
+  Finaliza a sessão autenticada.
 
-- **1.7 Upload de Arquivo CSV**  
-  Envio de arquivos `.csv` com **processamento assíncrono** via jobs em background. O progresso é armazenado em **cache (Redis)** com cálculo percentual.
+- **1.7 Upload CSV:**  
+  Upload de arquivos `.csv` com **processamento assíncrono** (jobs).  
+  A **porcentagem de progresso** é armazenada no **Redis**.
 
-- **1.8 Status de Importação**  
-  Apresenta o progresso do upload em tempo real, baseado no cache.
+- **1.8 Status de Importação:**  
+  Exibe o progresso atual baseado no valor em cache.
 
-- **1.9 Perfil do Usuário ("Me")**  
-  Retorna os dados do usuário autenticado.
+- **1.9 Me:**  
+  Exibe os dados do usuário autenticado.
 
-- **1.10 Listagem de Usuários**  
-  Paginação com 10 usuários por página.
+- **1.10 Listagem de Usuários:**  
+  Retorna usuários com paginação (10 por página).
 
 ---
 
-### 📄 2. Logs da Aplicação
+### 📄 Logs da Aplicação
 
-- **2.1 Listagem de Logs**  
-  Exibe logs das ações realizadas por usuários. Para jobs assíncronos, o log é salvo sem usuário.
+- **2.1 Listagem de Logs:**  
+  Exibe ações realizadas por usuários.  
+  Logs sem usuário autenticado (como jobs) são salvos anonimamente.
 
-- **2.2 Visualização de Log**  
-  Exibe os detalhes de um log específico, incluindo dados do usuário, quando aplicável.
+- **2.2 Visualização de Log (Show):**  
+  Apresenta um log específico, com dados do usuário quando aplicável.
 
 ---
 
 ## 🏗️ Arquitetura do Projeto
 
-### 🧵 1. Filas (Jobs)
+### 🧵 Fila (Jobs)
 
-- Gerenciadas com **Supervisord** (8 workers simultâneos).
-- Execução contínua, tolerante a falhas.
-- **Redis** como backend para performance e não sobrecarregar o banco de dados.
-- Multiprocessamento para alta performance.
+- Gerenciada via **Supervisord**, com **8 workers simultâneos**.
+- Execução contínua e tolerante a falhas.
+- Jobs armazenados no **Redis** para alta performance e não sobrecarregar o banco.
 
-### ⚙️ 2. Servidor
+### ⚙️ Servidor
 
-- Utiliza o **FrankenPHP**, com suporte a **Octane**.
-- Ideal para alta demanda e requisições concorrentes.
+- Servidor **FrankenPHP** com suporte a **Octane**.
+- Alta escalabilidade e performance para requisições simultâneas.
 
-### 📦 3. Redis
+### 📦 Redis
 
-- Usado para:
-  - Gerenciar filas.
-  - Armazenar progresso de importações.
-- Alta performance de leitura/escrita sem sobrecarregar o **MySQL**.
+- Utilizado para:
+  - Gerenciamento de filas.
+  - Armazenamento de progresso de importações.
+- Reduz carga no banco de dados relacional (**MySQL**).
 
-### 🔁 4. Supervisord
+### 🔁 Supervisord
 
-- Controla:
-  - Execução contínua dos workers.
-  - Reinício automático em caso de falhas.
-  - Inicialização do servidor.
+- Responsável por:
+  - Iniciar e manter workers em execução.
+  - Reiniciar workers em caso de falhas.
+  - Iniciar o servidor web.
 
 ---
 
-## ▶️ Execução da Aplicação
+## ▶️ Como Executar a Aplicação
 
-Execute os comandos abaixo:
+Execute os comandos abaixo em seu terminal:
 
 ```bash
 # Criar rede docker
 docker network create vexpenses
 
-# Subir os containers
+# Build e subida dos containers
 docker compose up --build
 ```
 
