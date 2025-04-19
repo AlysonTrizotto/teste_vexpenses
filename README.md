@@ -100,3 +100,8 @@ docker compose up --build
 ```
 
 ---
+
+### Portas externas e hosts
+ - Laravel: esta apontando para: localhost:8030
+ - MySql: esta apontando para: localhost:3306
+ - Redis: esta apontando para: localhost:6379
