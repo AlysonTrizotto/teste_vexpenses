@@ -106,6 +106,10 @@ services:
       - AWS_USE_PATH_STYLE_ENDPOINT=false
 
       - VITE_APP_NAME="${APP_NAME}"
+
+      - JWT_SECRET=gYbWdEvAUFfK8P9AbOvBQ1uMS5qbS30BH0zgFvPR36cxK0dHoyznGJMWTjYnaMJd
+      - JWT_TTL=2880
+      - JWT_REFRESH_TTL=20160
     depends_on:
       - mysql-db
       - redis
